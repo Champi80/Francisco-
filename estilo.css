@@ -1,0 +1,220 @@
+/* ==========================================================================
+   1. ESTILOS GENERALES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fcfcfc;
+    color: #000000;
+}
+
+/* Formato base de las tarjetas de noticias */
+section {
+    background: #6ce187;
+    border: 1px solid #6ce187; /* Bordes negros como tus bocetos */
+    padding: 12px;
+    border-radius: 4px;
+}
+
+section img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   2. DISEÑO PARA CELULAR (Primer Boceto + Menú Desplegable)
+   ========================================================================== */
+header {
+    background: #003366; /* Azul oscuro elegante acorde a tu referencia */
+    padding: 15px;
+    border-bottom: 1px solid #002244;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que el menú caiga abajo al desplegarse */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+}
+
+header h1 {
+    font-size: 1.2rem;
+    color: #ffffff; /* Texto blanco para contrastar con el fondo azul */
+}
+
+.menu-movil {
+    background: none;
+    border: 2px solid #ffffff; /* Borde sutil al botón como en tu imagen */
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+/* Estado inicial de los enlaces en móvil (Oculto) */
+.nav-links {
+    display: none; 
+    width: 100%; /* Ocupa todo el ancho disponible abajo del logo */
+    flex-direction: column; /* Alineación vertical para los enlaces */
+    gap: 0;
+    margin-top: 15px;
+}
+
+/* Esta clase se activa dinámicamente desde JavaScript */
+.nav-links.activo {
+    display: flex; 
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+    padding: 12px 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria suave */
+    display: block;
+}
+
+/* Rejilla Móvil: 2 columnas */
+.contenedor {
+    display: grid;
+    padding: 15px;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "deportes musica"
+        "comida comida"
+        "moda tecnologia";
+}
+
+/* Asignación de áreas móviles */
+.deportes { grid-area: deportes; }
+.musica { grid-area: musica; }
+.comida { grid-area: comida; }
+.moda { grid-area: moda; }
+.tecnologia { grid-area: tecnologia; }
+
+/* En celular, comida se acuesta de lado a lado */
+.comida {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.comida img { width: 40%; height: 90px; }
+.comida .texto-tarjeta { width: 60%; }
+
+
+/* ==========================================================================
+   3. DISEÑO PARA PC / LAPTOP (Segundo Boceto)
+   ========================================================================== */
+@media (min-width: 850px) {
+
+    header {
+        background: #003366; 
+    }
+
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-movil {
+        display: none; /* Oculta botón de tres líneas en PC */
+    }
+
+    .nav-links {
+        display: flex !important; /* Forzamos visualización horizontal */
+        flex-direction: row !important;
+        width: auto !important;
+        margin-top: 0 !important;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        color: #ffffff !important;
+        border-top: none !important;
+        padding: 0 !important;
+        font-size: 0.95rem;
+    }
+
+    /* Rejilla de PC: Base de 3 columnas asimétricas */
+    .contenedor {
+        max-width: 1200px;
+        margin: 20px auto;
+        grid-template-columns: 1.3fr 0.7fr 1fr; 
+        grid-template-areas: 
+            "deportes deportes musica"
+            "comida moda tecnologia";
+        gap: 20px;
+    }
+
+    /* Reconfiguración de las tarjetas según tu dibujo de PC */
+    
+    /* 1. Deportes se vuelve horizontal */
+    .deportes {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 15px;
+        align-items: center;
+    }
+    .deportes img {
+        width: 35% !important;
+        height: 180px;
+    }
+    .deportes .texto-tarjeta {
+        width: 65% !important;
+    }
+
+    /* 2. Música se vuelve caja vertical compacta */
+    .musica {
+        display: block !important;
+    }
+    .musica img {
+        width: 100% !important;
+        height: 110px;
+    }
+
+    /* 3. Las tres de abajo (Comida, Moda, Tecnología) verticales e iguales */
+    .comida {
+        display: block !important;
+    }
+    .comida img, .moda img, .tecnologia img {
+        width: 100% !important;
+        height: 140px;
+    }
+    .comida .texto-tarjeta, .moda .texto-tarjeta, .tecnologia .texto-tarjeta {
+        width: 100% !important;
+        padding-top: 10px;
+    }
+}
+
+/* PIE DE PÁGINA */
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #000;
+    margin-top: 30px;
+    background: #fff;
+}
