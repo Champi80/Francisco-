@@ -9,14 +9,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Un gris claro más moderno que el blanco puro */
+    background-color: #f8f9fa;
     color: #333333;
 }
 
 /* Formato base de las tarjetas de noticias */
 section {
-    background: #ffffff; /* Fondo blanco para legibilidad */
-    border: 1px solid #e0e0e0; /* Bordes suaves en lugar de negros puros */
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
     padding: 12px;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -24,14 +24,14 @@ section {
 
 section img {
     width: 100%;
-    height: auto;
+    height: 180px; /* Altura estándar para las imágenes en móvil */
     display: block;
     object-fit: cover;
     border-radius: 4px;
 }
 
 /* ==========================================================================
-   2. DISEÑO PARA CELULAR (Mobile First)
+   2. DISEÑO PARA CELULAR (Una noticia debajo de otra)
    ========================================================================== */
 header {
     background: #003366; 
@@ -73,7 +73,6 @@ header h1 {
     cursor: pointer;
 }
 
-/* Estado inicial de los enlaces en móvil (Oculto) */
 .nav-links {
     display: none; 
     width: 100%; 
@@ -81,7 +80,6 @@ header h1 {
     margin-top: 15px;
 }
 
-/* Clase activada desde JS */
 .nav-links.activo {
     display: flex; 
 }
@@ -95,38 +93,22 @@ header h1 {
     display: block;
 }
 
-/* Rejilla Móvil: 2 columnas */
+/* Rejilla Móvil: 1 sola columna vertical */
 .contenedor {
     display: grid;
+    grid-template-columns: 1fr; /* Una sección por fila */
     padding: 15px;
-    gap: 15px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-        "deportes musica"
-        "comida comida"
-        "moda tecnologia";
+    gap: 20px; /* Espaciado cómodo entre noticias */
 }
 
-/* Asignación de áreas móviles */
-.deportes { grid-area: deportes; }
-.musica { grid-area: musica; }
-.comida { grid-area: comida; }
-.moda { grid-area: moda; }
-.tecnologia { grid-area: tecnologia; }
-
-/* En celular, comida se acuesta de lado a lado */
-.comida {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
+/* En móvil, todas las tarjetas se ven verticales e iguales por defecto */
+.texto-tarjeta {
+    padding-top: 12px;
 }
-.comida img { width: 40%; height: 100px; }
-.comida .texto-tarjeta { width: 60%; }
 
 
 /* ==========================================================================
-   3. DISEÑO PARA PC / LAPTOP (Media Query Optimizada)
+   3. DISEÑO PARA PC / LAPTOP (Se activa a partir de 850px)
    ========================================================================== */
 @media (min-width: 850px) {
 
@@ -139,7 +121,6 @@ header h1 {
         display: none; 
     }
 
-    /* Reseteo limpio de estilos móviles sin requerir !important */
     .nav-links {
         display: flex; 
         flex-direction: row;
@@ -153,16 +134,9 @@ header h1 {
         padding: 5px 0;
         font-size: 0.95rem;
         font-weight: bold;
-        transition: color 0.2s;
-    }
-    
-    .nav-links a:hover {
-        color: #6ce187; /* Detalle de color al pasar el cursor */
     }
 
-    /* Rejilla de PC corregida: 
-       Usamos 3 columnas exactamente iguales (1fr) para que abajo midan lo mismo.
-       Deportes abarcará las dos primeras columnas. */
+    /* Activamos la distribución del periódico en PC: 3 columnas */
     .contenedor {
         max-width: 1200px;
         margin: 30px auto;
@@ -173,8 +147,15 @@ header h1 {
         gap: 25px;
         padding: 0 15px;
     }
+
+    /* Asignamos las áreas solo para las pantallas grandes */
+    .deportes { grid-area: deportes; }
+    .musica { grid-area: musica; }
+    .comida { grid-area: comida; }
+    .moda { grid-area: moda; }
+    .tecnologia { grid-area: tecnologia; }
     
-    /* 1. Deportes pasa a modo horizontal en PC */
+    /* Deportes se vuelve horizontal para destacar como portada */
     .deportes {
         display: flex;
         flex-direction: row;
@@ -187,32 +168,12 @@ header h1 {
     }
     .deportes .texto-tarjeta {
         width: 55%;
+        padding-top: 0;
     }
 
-    /* 2. Música vuelve a su comportamiento vertical estándar */
-    .musica img {
-        height: 140px;
-    }
-
-    /* 3. Comida cancela el comportamiento flex horizontal de móvil */
-    .comida {
-        display: block;
-    }
-    .comida img {
-        width: 100%;
+    /* Ajuste de tamaño para las imágenes de las demás columnas en PC */
+    .musica img, .comida img, .moda img, .tecnologia img {
         height: 150px;
-    }
-    .comida .texto-tarjeta {
-        width: 100%;
-        padding-top: 10px;
-    }
-
-    /* Ajuste simétrico para las imágenes inferiores */
-    .moda img, .tecnologia img {
-        height: 150px;
-    }
-    .texto-tarjeta {
-        padding: 8px 0 0 0;
     }
 }
 
