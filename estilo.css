@@ -9,16 +9,17 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #fcfcfc;
-    color: #000000;
+    background-color: #f8f9fa; /* Un gris claro más moderno que el blanco puro */
+    color: #333333;
 }
 
 /* Formato base de las tarjetas de noticias */
 section {
-    background: #6ce187;
-    border: 1px solid #6ce187; /* Bordes negros como tus bocetos */
+    background: #ffffff; /* Fondo blanco para legibilidad */
+    border: 1px solid #e0e0e0; /* Bordes suaves en lugar de negros puros */
     padding: 12px;
-    border-radius: 4px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 section img {
@@ -26,22 +27,23 @@ section img {
     height: auto;
     display: block;
     object-fit: cover;
+    border-radius: 4px;
 }
 
 /* ==========================================================================
-   2. DISEÑO PARA CELULAR (Primer Boceto + Menú Desplegable)
+   2. DISEÑO PARA CELULAR (Mobile First)
    ========================================================================== */
 header {
-    background: #003366; /* Azul oscuro elegante acorde a tu referencia */
+    background: #003366; 
     padding: 15px;
-    border-bottom: 1px solid #002244;
+    border-bottom: 2px solid #002244;
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Permite que el menú caiga abajo al desplegarse */
+    flex-wrap: wrap; 
 }
 
 .brand {
@@ -51,35 +53,35 @@ header {
 }
 
 .logo {
-    width: 60px;
-    height: auto;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }
 
 header h1 {
-    font-size: 1.2rem;
-    color: #ffffff; /* Texto blanco para contrastar con el fondo azul */
+    font-size: 1.3rem;
+    color: #ffffff; 
 }
 
 .menu-movil {
     background: none;
-    border: 2px solid #ffffff; /* Borde sutil al botón como en tu imagen */
+    border: 2px solid #ffffff; 
     border-radius: 6px;
     color: #ffffff;
     font-size: 1.5rem;
-    padding: 4px 10px;
+    padding: 4px 12px;
     cursor: pointer;
 }
 
 /* Estado inicial de los enlaces en móvil (Oculto) */
 .nav-links {
     display: none; 
-    width: 100%; /* Ocupa todo el ancho disponible abajo del logo */
-    flex-direction: column; /* Alineación vertical para los enlaces */
-    gap: 0;
+    width: 100%; 
+    flex-direction: column; 
     margin-top: 15px;
 }
 
-/* Esta clase se activa dinámicamente desde JavaScript */
+/* Clase activada desde JS */
 .nav-links.activo {
     display: flex; 
 }
@@ -89,7 +91,7 @@ header h1 {
     color: #ffffff;
     font-size: 1.1rem;
     padding: 12px 5px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria suave */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
     display: block;
 }
 
@@ -116,105 +118,111 @@ header h1 {
 .comida {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
-.comida img { width: 40%; height: 90px; }
+.comida img { width: 40%; height: 100px; }
 .comida .texto-tarjeta { width: 60%; }
 
 
 /* ==========================================================================
-   3. DISEÑO PARA PC / LAPTOP (Segundo Boceto)
+   3. DISEÑO PARA PC / LAPTOP (Media Query Optimizada)
    ========================================================================== */
 @media (min-width: 850px) {
-
-    header {
-        background: #003366; 
-    }
 
     .header-container {
         max-width: 1200px;
         margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .menu-movil {
-        display: none; /* Oculta botón de tres líneas en PC */
+        display: none; 
     }
 
+    /* Reseteo limpio de estilos móviles sin requerir !important */
     .nav-links {
-        display: flex !important; /* Forzamos visualización horizontal */
-        flex-direction: row !important;
-        width: auto !important;
-        margin-top: 0 !important;
-        gap: 15px;
-    }
-
-    .nav-links a {
-        color: #ffffff !important;
-        border-top: none !important;
-        padding: 0 !important;
-        font-size: 0.95rem;
-    }
-
-    /* Rejilla de PC: Base de 3 columnas asimétricas */
-    .contenedor {
-        max-width: 1200px;
-        margin: 20px auto;
-        grid-template-columns: 1.3fr 0.7fr 1fr; 
-        grid-template-areas: 
-            "deportes deportes musica"
-            "comida moda tecnologia";
+        display: flex; 
+        flex-direction: row;
+        width: auto;
+        margin-top: 0;
         gap: 20px;
     }
 
-    /* Reconfiguración de las tarjetas según tu dibujo de PC */
+    .nav-links a {
+        border-top: none;
+        padding: 5px 0;
+        font-size: 0.95rem;
+        font-weight: bold;
+        transition: color 0.2s;
+    }
     
-    /* 1. Deportes se vuelve horizontal */
+    .nav-links a:hover {
+        color: #6ce187; /* Detalle de color al pasar el cursor */
+    }
+
+    /* Rejilla de PC corregida: 
+       Usamos 3 columnas exactamente iguales (1fr) para que abajo midan lo mismo.
+       Deportes abarcará las dos primeras columnas. */
+    .contenedor {
+        max-width: 1200px;
+        margin: 30px auto;
+        grid-template-columns: repeat(3, 1fr); 
+        grid-template-areas: 
+            "deportes deportes musica"
+            "comida moda tecnologia";
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
+    /* 1. Deportes pasa a modo horizontal en PC */
     .deportes {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 15px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
         align-items: center;
     }
     .deportes img {
-        width: 35% !important;
-        height: 180px;
+        width: 45%;
+        height: 220px;
     }
     .deportes .texto-tarjeta {
-        width: 65% !important;
+        width: 55%;
     }
 
-    /* 2. Música se vuelve caja vertical compacta */
-    .musica {
-        display: block !important;
-    }
+    /* 2. Música vuelve a su comportamiento vertical estándar */
     .musica img {
-        width: 100% !important;
-        height: 110px;
-    }
-
-    /* 3. Las tres de abajo (Comida, Moda, Tecnología) verticales e iguales */
-    .comida {
-        display: block !important;
-    }
-    .comida img, .moda img, .tecnologia img {
-        width: 100% !important;
         height: 140px;
     }
-    .comida .texto-tarjeta, .moda .texto-tarjeta, .tecnologia .texto-tarjeta {
-        width: 100% !important;
+
+    /* 3. Comida cancela el comportamiento flex horizontal de móvil */
+    .comida {
+        display: block;
+    }
+    .comida img {
+        width: 100%;
+        height: 150px;
+    }
+    .comida .texto-tarjeta {
+        width: 100%;
         padding-top: 10px;
+    }
+
+    /* Ajuste simétrico para las imágenes inferiores */
+    .moda img, .tecnologia img {
+        height: 150px;
+    }
+    .texto-tarjeta {
+        padding: 8px 0 0 0;
     }
 }
 
 /* PIE DE PÁGINA */
 footer {
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid #000;
-    margin-top: 30px;
-    background: #fff;
+    padding: 25px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 40px;
+    background: #ffffff;
+    color: #666;
+    font-size: 0.9rem;
 }
